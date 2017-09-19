@@ -36,7 +36,6 @@ class App extends Component {
     return (
       <div className="container">
         <header>
-          <h1>Todo List</h1>
            <AccountsUIWrapper />
           { this.props.currentUser ?
             <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
