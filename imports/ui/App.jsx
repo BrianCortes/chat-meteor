@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom';
 import { createContainer } from 'meteor/react-meteor-data';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
-import { Tasks } from '../api/task.js';
+import { Messages } from '../api/Message.js';
 
-import Task from './Task.jsx';
+import Message from './Message.jsx';
 
 // App component - represents the whole app
 class App extends Component {
@@ -16,7 +16,7 @@ class App extends Component {
     // Find the text field via the React ref
     const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
  
-    Tasks.insert({
+    Messages.insert({
       text,
       createdAt: new Date(), // current time
       owner: Meteor.userId(),           // _id of logged in user
@@ -27,41 +27,58 @@ class App extends Component {
     ReactDOM.findDOMNode(this.refs.textInput).value = '';
   }
   renderTasks() {
-    return this.props.tasks.map((task) => (
-      <Task key={task._id} task={task} />
+    return this.props.message.map((message) => (
+      <Message key={message._id} task={message} />
     ));
   }
-
+  salirAplication = () => {
+    Meteor.logout();
+    this.props.router.push('/')
+  }
   render() {
-    return (
-      <div className="container">
-        <header>
-           <AccountsUIWrapper />
-          { this.props.currentUser ?
-            <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
-              <input
-                type="text"
-                ref="textInput"
-                placeholder="Type to add new tasks"
-              />
-            </form> : ''
-          }
-        </header>
-        <ul>
-          {this.renderTasks()}
-        </ul>
-      </div>
-    );
+    if (this.props.currentUser){
+      const {
+        username
+      } = this.props.currentUser
+      return (
+        <div className="container-app">
+          <div className='chat'>
+            <div className='chat-header'>
+              {username ? `Hola, ${username} ...` : ''}
+              <p className='chat-close' onClick={()=> this.salirAplication()}>X</p>
+            </div>
+            <ul>
+              {this.renderTasks()}
+            </ul>
+            <div className='write-message'>
+              { username ?
+                <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
+                  <input
+                    type="text"
+                    ref="textInput"
+                    placeholder="Type to add new message"
+                  />
+                </form> : ''
+              }
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <h1>lo siento estas en lugar equivocado</h1>
+      )
+    }
   }
 }
 
 App.propTypes = {
-  tasks: PropTypes.array.isRequired,
+  message: PropTypes.array.isRequired,
 };
 
 export default createContainer(() => {
   return {
-    tasks: Tasks.find({}).fetch(),
+    message: Messages.find({}).fetch(),
     currentUser: Meteor.user(),
   };
 }, App);

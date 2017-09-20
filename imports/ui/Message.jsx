@@ -1,18 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 
-import { Tasks } from '../api/task.js';
+import { Messages } from '../api/Message.js';
 
 // Task component - represents a single todo item
 export default class Task extends Component {
   toggleChecked() {
     // Set the checked property to the opposite of its current value
-    Tasks.update(this.props.task._id, {
+    Messages.update(this.props.task._id, {
       $set: { checked: !this.props.task.checked },
     });
   }
 
   deleteThisTask() {
-    Tasks.remove(this.props.task._id);
+    Messages.remove(this.props.task._id);
   }
 
   render() {
@@ -25,13 +25,6 @@ export default class Task extends Component {
         <button className="delete" onClick={this.deleteThisTask.bind(this)}>
           &times;
         </button>
-
-        <input
-          type="checkbox"
-          readOnly
-          checked={this.props.task.checked}
-          onClick={this.toggleChecked.bind(this)}
-        />
 
          <span className="text">
           <strong>{this.props.task.username}</strong>: {this.props.task.text}

@@ -50,12 +50,13 @@ form {
  
 .new-task input {
   box-sizing: border-box;
-  padding: 10px 0;
+  padding: 10px;
   background: transparent;
   border: none;
   width: 100%;
   padding-right: 80px;
   font-size: 1em;
+  color: white;
 }
  
 .new-task input:focus{
@@ -140,4 +141,57 @@ header .hide-completed {
   display: flex;
   flex-direction: column;
   padding: 10px;
+}
+
+.container-app{
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+.chat{
+  width: 500px;
+  height: 90vh;
+  border: 3px solid white;
+  border-radius: 5px;
+  position: relative;
+}
+.write-message{
+  position: absolute;
+  top: 92%;
+  left: 0;
+  border-top: solid 1px white;
+  width: 100%
+}
+
+.chat-header{
+  background-color: magenta;
+  color: white;
+  position: relative;
+  font-family: 'Lobster', cursive;
+  font-size: 20px;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat-close{
+  position: absolute;
+  top: 0;
+  right: 3%;
+  font-size: 20px;
+  font-family: arial;
+  cursor: pointer;
+}
+
+.button-form{
+  margin-top: 50px;
+  width: 100px;
+  height: 40px;
+  background-color: midnightblue;
+  color: white;
+  border: 0px;
+  border-radius: 3px;
+  cursor: pointer;
 }

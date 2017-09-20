@@ -6,8 +6,8 @@ import { Accounts } from 'meteor/accounts-base';
 class login extends Component {
   register = () => {
     Accounts.createUser({
-      email: this.nameUser.value,
-        password: this.passwordUser.value
+      username: this.nameUser.value,
+      password: this.passwordUser.value
     }, (res) => {
       if(res === undefined) {
         this.props.router.push('/home')
@@ -37,15 +37,19 @@ class login extends Component {
             <div className='container-form'>
               <div className='container-register'>
                 <h1>register</h1>
+                <h3>UsurName</h3>
                 <input ref={(input) => { this.nameUser = input }} type="text"/>
+                <h3>Password</h3>
                 <input ref={(input) => { this.passwordUser = input }} type="password"/>
-                <input type="button" value='registrar' onClick={() => this.register()}/>
+                <input className='button-form' type="button" value='registrar' onClick={() => this.register()}/>
               </div>
               <div className='container-login'>
                 <h1>login</h1>
+                <h3>UsurName</h3>
                 <input ref={(input) => { this.nameUserLogin = input }} type="text"/>
+                <h3>Password</h3>
                 <input ref={(input) => { this.passwordUserLogin = input }} type="password"/>
-                <input type="button" value='ENTRAR' onClick={() => this.login()}/>
+                <input className='button-form' type="button" value='ENTRAR' onClick={() => this.login()}/>
               </div>
             </div>
           </form>
